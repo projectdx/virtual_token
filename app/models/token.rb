@@ -43,12 +43,6 @@ class Token < ActiveRecord::Base
     queue.any?
   end
 
-  def update_queue
-    if _current_request = current_request
-      _current_request.claim_granted
-    end
-  end
-
   private
 
   def set_slug

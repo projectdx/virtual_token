@@ -8,15 +8,4 @@ class TokenRequest < ActiveRecord::Base
   validates_presence_of :purpose
 
   delegate :name, :to => :user, :prefix => true
-
-  def claim_granted
-    unless claim_granted?
-      update_attribute(:claim_granted_at, Time.now)
-      TokenRequestNotification.claim_granted(self).deliver
-    end
-  end
-
-  def claim_granted?
-    claim_granted_at.present?
-  end
 end

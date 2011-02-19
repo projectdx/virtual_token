@@ -117,14 +117,4 @@ describe Token do
       end
     end
   end
-
-  describe '#update_queue' do
-    it 'notifies the #current_request that it has claimed the token' do
-      token = Token.new
-      request = mock_model('TokenRequest', :set_token_target => nil)
-      request.should_receive(:claim_granted)
-      token.stub!(:current_request => request)
-      token.update_queue
-    end
-  end
 end
