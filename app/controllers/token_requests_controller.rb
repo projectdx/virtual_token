@@ -18,12 +18,6 @@ class TokenRequestsController < ApplicationController
     TokenRequest.destroy(params[:id])
     redirect_to token_path(params[:token_id])
   end
-  
-  def move
-    token_request = TokenRequest.find(params[:id])
-    token_request.move(params[:where])
-    redirect_to token_path(params[:token_id])
-  end
 
   private
 

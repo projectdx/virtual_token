@@ -4,7 +4,7 @@ class Token < ActiveRecord::Base
   end
 
   has_many :requests, :class_name => 'TokenRequest', :inverse_of => :token,
-    :dependent => :destroy, :order => 'position ASC'
+    :dependent => :destroy, :order => 'created_at ASC'
 
   before_validation :set_slug, :on => :create
 
@@ -45,7 +45,7 @@ class Token < ActiveRecord::Base
 
   def update_queue
     if _current_request = current_request(true)
-      _current_request.grant_claim
+      _current_request.claim_granted
     end
   end
 
