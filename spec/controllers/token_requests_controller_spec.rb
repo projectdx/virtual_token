@@ -53,10 +53,11 @@ describe TokenRequestsController do
     describe '#create' do
       context 'with invalid data' do
         before(:each) do
-          Token.stub!(:find_by_slug!)
+          @token = mock_model('Token')
+          Token.stub!(:find_by_slug! => @token)
           @token_request = mock_model('TokenRequest').as_new_record
           exception = ActiveRecord::RecordInvalid.new(@token_request)
-          TokenRequest.stub!(:create!).and_raise(exception)
+          @token.stub!(:create_request!).and_raise(exception)
         end
 
         it 'renders the tokens/show template' do
@@ -65,9 +66,11 @@ describe TokenRequestsController do
         end
 
         it 'assigns the specified token to the template' do
-          Token.should_receive(:find_by_slug!).with('1').and_return(:the_token)
+          @token = mock_model('Token')
+          @token.stub!(:create_request!)
+          Token.should_receive(:find_by_slug!).with('1').and_return(@token)
           post :create, :token_id => '1'
-          assigns(:token).should == :the_token
+          assigns(:token).should == @token
         end
 
         it 'assigns the invalid token request to the template' do
@@ -78,19 +81,20 @@ describe TokenRequestsController do
 
       context 'with valid data' do
         it 'should create a new TokenRequest associated with the specified token and current user' do
-          Token.should_receive(:find_by_slug!).with('1').and_return(:the_token)
-          TokenRequest.should_receive(:create!) \
-            .with("purpose" => 'Foo', "urgent" => '1', "token" => :the_token,
-                  "user" => @user)
+          @token = mock_model('Token')
+          Token.should_receive(:find_by_slug!).with('1').and_return(@token)
+          @token.should_receive(:create_request!) \
+            .with("purpose" => 'Foo', "urgent" => '1', "user" => @user)
           post :create, :token_id => '1',
             :token_request => {:purpose => 'Foo', :urgent => '1'}
         end
 
         it 'should redirect to the token page' do
-          Token.stub!(:find_by_slug!)
-          TokenRequest.stub!(:create!)
+          @token = mock_model('Token')
+          Token.stub!(:find_by_slug! => @token)
+          @token.stub!(:create_request!)
           post :create, :token_id => '1'
-          response.should redirect_to token_path('1')
+          response.should redirect_to token_path(@token)
         end
       end
     end
