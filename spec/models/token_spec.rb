@@ -87,14 +87,8 @@ describe Token do
   describe '#current_request' do
     it 'returns #requests.first' do
       token = Token.new
-      token.should_receive(:requests).with(false).and_return([:request_a, :request_b])
+      token.stub!(:requests => [:request_a, :request_b])
       token.current_request.should === :request_a
-    end
-
-    it 'reloads the requests association when `true` is passed' do
-      token = Token.new
-      token.should_receive(:requests).with(true).and_return([])
-      token.current_request(true)
     end
   end
 
@@ -129,12 +123,6 @@ describe Token do
   end
 
   describe '#update_queue' do
-    it 'reloads the requests association' do
-      token = Token.new
-      token.should_receive(:requests).with(true).and_return([])
-      token.update_queue
-    end
-
     it 'notifies the #current_request that it has claimed the token' do
       token = Token.new
       request = mock_model('TokenRequest', :set_token_target => nil)

@@ -19,8 +19,8 @@ class Token < ActiveRecord::Base
     requests.any?
   end
 
-  def current_request(reload = false)
-    requests(reload).first
+  def current_request
+    requests.first
   end
 
   def claimed_by
@@ -44,7 +44,7 @@ class Token < ActiveRecord::Base
   end
 
   def update_queue
-    if _current_request = current_request(true)
+    if _current_request = current_request
       _current_request.claim_granted
     end
   end
