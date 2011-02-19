@@ -93,14 +93,10 @@ describe Token do
   end
 
   describe '#queue' do
-    it 'returns requests that have not been granted the claim' do
+    it 'returns all requests other than the current request' do
       t = Token.new
-      requests_proxy = mock('Token#requests')
-      requests_proxy.should_receive(:where) \
-        .with(:claim_granted_at => nil) \
-        .and_return([:req_a, :req_b])
-      t.stub!(:requests => requests_proxy)
-      t.queue.should == [:req_a, :req_b]
+      t.stub!(:requests => [:a, :b, :c])
+      t.queue.should == [:b, :c]
     end
   end
 
