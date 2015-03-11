@@ -11,6 +11,7 @@ class TokenRequestsController < ApplicationController
   rescue ActiveRecord::RecordInvalid => e
     @token = token_params[:token]
     @new_token_request = e.record
+    @other_tokens = Token.other_tokens(@token)
     render 'tokens/show'
   end
 
@@ -18,7 +19,7 @@ class TokenRequestsController < ApplicationController
     TokenRequest.destroy(params[:id])
     redirect_to token_path(params[:token_id])
   end
-  
+
   def move
     token_request = TokenRequest.find(params[:id])
     token_request.move(params[:where])
