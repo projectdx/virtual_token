@@ -4,7 +4,7 @@ describe TokenRequestQueueObserver do
   shared_examples_for :queue_updater do
     it 'calls Token#update_queue on the associated Token' do
       token = mock_model('Token')
-      token.should_receive(:update_queue)
+      expect(token).to receive(:update_queue)
       request = mock_model('TokenRequest', :token => token)
       observer = TokenRequestQueueObserver.instance
       observer.send(@callback_name, request)

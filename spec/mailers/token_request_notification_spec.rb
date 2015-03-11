@@ -11,16 +11,16 @@ describe TokenRequestNotification do
     end
 
     it "renders the headers" do
-      mail.subject.should eq("It's your turn with the Yodeling Pickle token")
-      mail.to.should eq(["to@example.org"])
-      mail.from.should eq(["no-reply@virtual-token.heroku.com"])
+      expect(mail.subject).to eq("It's your turn with the Yodeling Pickle token")
+      expect(mail.to).to eq(["to@example.org"])
+      expect(mail.from).to eq(["no-reply@virtual-token.heroku.com"])
     end
 
     it "renders the body" do
       mail_body_fixture_path = File.join(Rails.root, 'spec', 'fixtures',
                                          'token_request_notification',
                                          'claim_granted')
-      mail.body.encoded.should match(File.read(mail_body_fixture_path))
+      expect(mail.body.encoded).to match(File.read(mail_body_fixture_path))
     end
   end
 end
