@@ -4,4 +4,6 @@
 require File.expand_path('../config/application', __FILE__)
 require 'rake'
 
+task :default => ['db:test:prepare', 'spec']
+
 VirtualToken::Application.load_tasks

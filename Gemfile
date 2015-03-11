@@ -6,7 +6,7 @@ gem 'protected_attributes'
 gem 'jquery-rails'
 
 gem 'rails'
-gem 'sqlite3-ruby', :require => 'sqlite3'
+gem 'pg'
 gem 'devise'
 
 group :development, :test do
