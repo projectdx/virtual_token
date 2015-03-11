@@ -7,5 +7,5 @@ Rails.application.routes.draw do
       end
     end
   end
-  root :to => 'tokens#new'
+  root :to => 'tokens#index'
 end
