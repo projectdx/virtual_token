@@ -9,6 +9,9 @@ gem 'protected_attributes'
 # Use jquery
 gem 'jquery-rails'
 
+# Add logging to STDOUT and asset serving in Heroku
+gem 'rails_12factor'
+
 # Use puma webserver
 gem 'puma'
 
