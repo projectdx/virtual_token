@@ -7,6 +7,8 @@
   <%= csrf_meta_tag %>
 </head>
 <body>
+<%= render "devise/menu/login_items" %>
+
   <% if flash[:notice] %>
     <p class="notice"><%= flash[:notice] %></p>
   <% end %>
