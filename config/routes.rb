@@ -1,4 +1,4 @@
-VirtualToken::Application.routes.draw do
+Rails.application.routes.draw do
   devise_for :users
   resources :tokens do
     resources :token_requests, :as => :requests do

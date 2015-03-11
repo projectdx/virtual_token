@@ -9,7 +9,7 @@ class TokensController < ApplicationController
   end
 
   def index
-    @tokens = Token.all(:order => 'updated_at desc')
+    @tokens = Token.order('updated_at desc')
   end
 
   def destroy

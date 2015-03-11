@@ -1,10 +1,12 @@
 class Token < ActiveRecord::Base
+  attr_accessible :name, :slug
+
   def self.generate_slug(name)
     name.to_s.downcase.gsub(/\W+/, '-').gsub(/(^-|-$)/, '')
   end
 
-  has_many :requests, :class_name => 'TokenRequest', :inverse_of => :token,
-    :dependent => :destroy, :order => 'position ASC'
+  has_many :requests, -> { order(:position => :asc) }, :class_name => 'TokenRequest', :inverse_of => :token,
+    :dependent => :destroy
 
   before_validation :set_slug, :on => :create
 

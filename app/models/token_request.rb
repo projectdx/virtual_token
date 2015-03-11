@@ -1,4 +1,6 @@
 class TokenRequest < ActiveRecord::Base
+  attr_accessible :user, :token, :purpose
+
   belongs_to :user
   belongs_to :token, :inverse_of => :requests
   acts_as_list :scope => :token
@@ -19,7 +21,7 @@ class TokenRequest < ActiveRecord::Base
   def grant_claim
     unless claim_granted?
       update_attribute(:claim_granted_at, Time.now)
-      TokenRequestNotification.claim_granted(self).deliver
+      TokenRequestNotification.claim_granted(self).deliver_now
     end
   end
 
@@ -30,7 +32,7 @@ class TokenRequest < ActiveRecord::Base
   def claim_granted?
     claim_granted_at.present?
   end
-  
+
   def move(where)
     case where
     when 'top'
