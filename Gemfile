@@ -16,6 +16,13 @@ gem 'rails'
 gem 'pg'
 gem 'devise'
 
+# Use SCSS for stylesheets
+gem 'sass-rails', '~> 5.0'
+# Use Uglifier as compressor for JavaScript assets
+gem 'uglifier', '>= 1.3.0'
+# Use CoffeeScript for .coffee assets and views
+gem 'coffee-rails', '~> 4.1.0'
+
 group :development, :test do
   gem 'rspec-rails'
   gem 'rspec-activemodel-mocks'
